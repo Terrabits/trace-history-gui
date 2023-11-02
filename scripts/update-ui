@@ -21,4 +21,3 @@ function update() {
 
 # update each ui object
 update mainwindow
-update widget
