@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -o errexit   # exit on error
+set -o pipefail  # exit on error in pipes
+set -o nounset   # exit on unset variable
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+cd "$ROOT_DIR"
+
+
+# paths
+INPUT_DIR="$ROOT_DIR/qtcreator"
+OUTPUT_DIR="$ROOT_DIR/src/trace_history_gui/widgets"
+
+
+
+# update action
+function update() {
+  NAME=$1
+  pyside6-uic "$INPUT_DIR/$NAME.ui" > "$OUTPUT_DIR/ui_$NAME.py"
+}
+
+
+# update each ui object
+update mainwindow
+update widget

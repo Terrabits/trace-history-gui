@@ -1,0 +1,48 @@
+[build-system]
+requires      = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "trace_history_gui"
+authors = [{name  = "Nick Lalic", email = "nick.lalic@rsa.rohde-schwarz.com"}]
+description     = "This is a Graphical User Interface for performing Rohde & Schwarz (R&S) Vector Network Analyzer measurements with the Trace History feature."
+requires-python = ">=3.5"
+keywords = [
+  "rohde",
+  "schwarz",
+  "vector",
+  "network",
+  "analyzer",
+  "VNA",
+  "trace",
+  "history",
+  "trace-history"
+]
+license      = { file = "LICENSE.txt" }
+classifiers  = [
+  "Programming Language :: Python :: 3"
+]
+dependencies = [
+  "trace-history >=1.3, <2",
+  "appdirs >=1.4, <2",
+  "pyside2 >=5.13, <6",
+  "qtrf >=1.8, <2",
+]
+dynamic = [
+  "readme",
+  "version"
+]
+
+
+[project.optional-dependencies]
+dev = ["pyinstaller >=6.1"]
+
+
+[tool.setuptools.dynamic]
+readme  = { file = ["README.md"] }
+version = { attr = "trace_history_gui.VERSION" }
+
+
+[project.scripts]
+trace-history = "trace_history_gui.main:main"

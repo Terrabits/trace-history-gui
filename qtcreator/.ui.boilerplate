@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>Name</class>
+  <widget class="QWidget" name="Name"/>
+  <resources/>
+  <connections/>
+</ui>
