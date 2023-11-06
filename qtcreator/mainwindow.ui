@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-  <class>MainWindow</class>
-  <widget   class="QMainWindow" name="mainwindow">
-    <widget class="QWidget"     name="centralWidget"/>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>263</width>
+    <height>361</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="Connect" name="connect"/>
+    </item>
+    <item>
+     <widget class="Measure" name="measure">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
   </widget>
-  <resources/>
-  <connections/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Connect</class>
+   <extends>QGroupBox</extends>
+   <header>trace_history_gui/widgets/connect.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Measure</class>
+   <extends>QGroupBox</extends>
+   <header>trace_history_gui/widgets/measure.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
 </ui>

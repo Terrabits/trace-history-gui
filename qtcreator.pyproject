@@ -2,7 +2,9 @@
 
 
 "files": [
-  "qtcreator/mainwindow.ui"
+  "qtcreator/connect.ui",
+  "qtcreator/mainwindow.ui",
+  "qtcreator/measure.ui"
 ]
 
 
