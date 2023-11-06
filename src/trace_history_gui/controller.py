@@ -17,9 +17,6 @@ class Controller:
         view  = self.view
 
 
-        # TODO: validate inputs first
-
-
         # disconnect?
         if model.is_connected:
             print('disconnecting')
@@ -27,6 +24,12 @@ class Controller:
             self.update_view()
             return
 
+
+        # connect
+
+        # validate inputs
+        if not self.valid_connect_inputs():
+            return
 
         # make tcp connection?
         if view.is_tcp:
@@ -52,9 +55,13 @@ class Controller:
 
         # connected
         self.update_view()
+        self.view.focus_set_file()
 
 
     def start_measurement(self):
+        # validate inputs
+        if not self.valid_measure_inputs():
+            return
         set_file    = self.view.set_file
         sweep_count = self.view.sweep_count
         timeout_s   = self.view.timeout_s
@@ -88,3 +95,66 @@ class Controller:
         # connected
         self.view.connect()
         self.update_set_files()
+
+
+    def valid_connect_inputs(self):
+        view = self.view
+
+        # check tcp host
+        if view.is_tcp and not view.is_valid_tcp_host:
+            print('error: enter valid tcp host')
+            view.focus_tcp_host()
+            view.shake()
+            return False
+
+        # check visa resource
+        if view.is_visa and not view.visa_resource:
+            # TODO
+            print('error: enter visa resource')
+            view.focus_visa_resource()
+            view.shake()
+            return False
+
+        # valid inputs
+        return True
+
+
+    def valid_measure_inputs(self):
+        view = self.view
+
+        # check sweep count
+        if view.sweep_count is None:
+            print('error: enter sweep count')
+            view.focus_sweep_count()
+            view.shake()
+            return False
+
+        # check sweep count is greater than zero
+        if view.sweep_count == 0:
+            print('error: sweep count must be greater than zero')
+            view.focus_sweep_count()
+            view.shake()
+            return False
+
+        # check timeout
+        if view.timeout_s is None:
+            print('error: enter timeout')
+            view.focus_timeout()
+            view.shake()
+            return False
+
+        # check timeout is greater than zero
+        if view.timeout_s == 0:
+            print('error: timeout must be greater than zero')
+            view.focus_timeout()
+            view.shake()
+            return False
+
+        if not view.data_path:
+            print('error: enter data path')
+            view.focus_data_path()
+            view.shake()
+            return False
+
+        # valid inputs
+        return True
