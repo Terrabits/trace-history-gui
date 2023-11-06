@@ -144,7 +144,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="tcpHost">
+        <widget class="IPAddressLineEdit" name="tcpHost">
          <property name="placeholderText">
           <string>e.g. ZNA43-123456</string>
          </property>
@@ -248,6 +248,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IPAddressLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qtrf/widgets.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>isTcp</tabstop>
   <tabstop>isVisa</tabstop>

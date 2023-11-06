@@ -46,10 +46,10 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="dataPath">
+    <widget class="FileWidget" name="dataPath">
      <property name="minimumSize">
       <size>
-       <width>200</width>
+       <width>250</width>
        <height>0</height>
       </size>
      </property>
@@ -65,10 +65,10 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="sweepCount"/>
+    <widget class="IntValueLineEdit" name="sweepCount"/>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="timeout_s"/>
+    <widget class="SecondsLineEdit" name="timeout_s"/>
    </item>
    <item row="4" column="1">
     <widget class="QWidget" name="startWidget" native="true">
@@ -113,6 +113,26 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+  <class>FileWidget</class>
+  <extends>QWidget</extends>
+  <header>qtrf/widgets.h</header>
+  <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>IntValueLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qtrf/widgets.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SecondsLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qtrf/widgets.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>setFile</tabstop>
   <tabstop>sweepCount</tabstop>

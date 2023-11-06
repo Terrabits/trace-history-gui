@@ -106,34 +106,33 @@ class MainWindow(UiMixin):
 
     @property
     def sweep_count(self):
-        # TODO: use qtrf for pyside6
-        return int(self.ui.measure.ui.sweepCount.text())
+        return self.ui.measure.ui.sweepCount.value
 
     @sweep_count.setter
     def sweep_count(self, sweep_count):
-        self.ui.measure.ui.sweepCount.setText(str(sweep_count))
+        self.ui.measure.ui.sweepCount.value = sweep_count
 
 
     # timeout, seconds
 
     @property
     def timeout_s(self):
-        return float(self.ui.measure.ui.timeout_s.text())
+        return self.ui.measure.ui.timeout_s.value
 
     @timeout_s.setter
     def timeout_s(self, timeout_s):
-        self.ui.measure.ui.timeout_s.setText(str(timeout_s))
+        self.ui.measure.ui.timeout_s.value = timeout_s
 
 
     # data path
 
     @property
     def data_path(self):
-        return self.ui.measure.ui.dataPath.text()
+        return self.ui.measure.ui.dataPath.filename
 
     @data_path.setter
     def data_path(self, data_path):
-        self.ui.measure.ui.dataPath.setText(str(data_path))
+        self.ui.measure.ui.dataPath.filename = data_path
 
 
     # signal start measurement button clicked

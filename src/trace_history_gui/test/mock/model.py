@@ -40,6 +40,10 @@ class Model:
         self.data_path   = None
 
 
+    def get_set_files(self):
+        return ['Set1', 'Set2', 'Set3']
+
+
     # measure
 
     def measure_and_save(self, set_file, sweep_count, timeout_s, data_path):
@@ -51,9 +55,3 @@ class Model:
         self.sweep_count = sweep_count
         self.timeout_s   = timeout_s
         self.data_path   = data_path
-
-
-# monkeypatch
-
-def use_mock_model():
-    model.Model = Model

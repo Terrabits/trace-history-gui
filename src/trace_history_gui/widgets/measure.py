@@ -17,6 +17,8 @@ class Measure(UiMixin):
 
     def __init__(self, parent=None):
         UiMixin.__init__(self, parent)
+        self.ui.timeout_s.decimal_places = 1
+        self.ui.dataPath.save = True
         self.clear_set_files()
 
 
@@ -42,8 +44,16 @@ class Measure(UiMixin):
 
 
     def update_set_files(self, set_files):
+        # save current set file
+        current_set_file = self.set_file
+
+        # update set files
         self.clear_set_files()
         self.ui.setFile.addItems(set_files)
+
+        # restore current set file?
+        if current_set_file in set_files:
+            self.ui.setFile.setCurrentText(current_set_file)
 
 
     # helpers

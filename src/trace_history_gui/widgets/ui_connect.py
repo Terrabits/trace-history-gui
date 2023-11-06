@@ -19,6 +19,8 @@ from PySide6.QtWidgets import (QApplication, QFormLayout, QGroupBox, QHBoxLayout
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QSpacerItem, QStackedWidget, QWidget)
 
+from qtrf.widgets import IPAddressLineEdit
+
 class Ui_Connect(object):
     def setupUi(self, Connect):
         if not Connect.objectName():
@@ -86,7 +88,7 @@ class Ui_Connect(object):
         self.horizontalLayout_2 = QHBoxLayout(self.tcpEndpointPage)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.tcpHost = QLineEdit(self.tcpEndpointPage)
+        self.tcpHost = IPAddressLineEdit(self.tcpEndpointPage)
         self.tcpHost.setObjectName(u"tcpHost")
 
         self.horizontalLayout_2.addWidget(self.tcpHost)

@@ -1,8 +1,10 @@
+from   .command_line     import parse_args
+from   .controller       import Controller
+from   .model            import Model
+from   .test.mock.model  import Model as MockModel
+from   .widgets          import MainWindow
 from   PySide6.QtWidgets import QApplication
 import sys
-from   trace_history_gui.controller import Controller
-from   trace_history_gui.model      import Model
-from   trace_history_gui.widgets    import MainWindow
 
 
 # for inspection
@@ -13,7 +15,15 @@ controller = None
 
 
 def main():
-    global app, controller, view, model
+    global app, controller, view, model, Model
+
+    # parse command line args
+    args = parse_args()
+
+    # process --demo
+    if args.demo:
+        Model = MockModel
+
 
     # create qt app
     app = QApplication([])

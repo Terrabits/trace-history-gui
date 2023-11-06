@@ -16,8 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QGroupBox,
-    QHBoxLayout, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QSpacerItem, QWidget)
+    QHBoxLayout, QLabel, QPushButton, QSizePolicy,
+    QSpacerItem, QWidget)
+
+from qtrf.widgets import (FileWidget, IntValueLineEdit, SecondsLineEdit)
 
 class Ui_Measure(object):
     def setupUi(self, Measure):
@@ -46,9 +48,9 @@ class Ui_Measure(object):
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.dataPathLabel)
 
-        self.dataPath = QLineEdit(Measure)
+        self.dataPath = FileWidget(Measure)
         self.dataPath.setObjectName(u"dataPath")
-        self.dataPath.setMinimumSize(QSize(200, 0))
+        self.dataPath.setMinimumSize(QSize(250, 0))
 
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.dataPath)
 
@@ -58,12 +60,12 @@ class Ui_Measure(object):
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.setFile)
 
-        self.sweepCount = QLineEdit(Measure)
+        self.sweepCount = IntValueLineEdit(Measure)
         self.sweepCount.setObjectName(u"sweepCount")
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.sweepCount)
 
-        self.timeout_s = QLineEdit(Measure)
+        self.timeout_s = SecondsLineEdit(Measure)
         self.timeout_s.setObjectName(u"timeout_s")
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.timeout_s)

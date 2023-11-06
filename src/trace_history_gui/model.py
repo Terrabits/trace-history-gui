@@ -60,5 +60,9 @@ class Model:
         self.vna = None
 
 
+    def get_set_files(self):
+        return self.vna.set_files
+
+
     def measure_and_save(self, set_file, sweep_count, timeout_s, data_path):
         measure_and_save()
