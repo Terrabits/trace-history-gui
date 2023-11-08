@@ -6,20 +6,46 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>263</width>
-    <height>361</height>
+    <width>544</width>
+    <height>418</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>16</pointsize>
+   </font>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="bottomMargin">
+     <number>12</number>
+    </property>
     <item>
-     <widget class="Connect" name="connect"/>
-    </item>
-    <item>
-     <widget class="Measure" name="measure">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="Connect" name="connect"/>
+       </item>
+       <item>
+        <widget class="Measure" name="measure">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
@@ -34,6 +60,13 @@
        </size>
       </property>
      </spacer>
+    </item>
+    <item>
+     <widget class="ErrorLabel" name="errorLabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -50,6 +83,11 @@
    <extends>QGroupBox</extends>
    <header>trace_history_gui/widgets/measure.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ErrorLabel</class>
+   <extends>QLabel</extends>
+   <header>trace_history_gui/widgets/error_label.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

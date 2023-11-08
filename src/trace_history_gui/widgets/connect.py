@@ -24,24 +24,16 @@ class Connect(UiMixin):
 
     def __init__(self, parent=None):
         UiMixin.__init__(self, parent)
-        self._is_connected = False
         self.connect_signals_and_slots()
 
 
-    @property
-    def is_connected(self):
-        return self._is_connected
-
-
     def connect(self):
-        self._is_connected = True
         self.ui.methods.setDisabled(True)
         self.ui.endpointPages.setDisabled(True)
         self.ui.connect.setText(CONNECTED_TEXT)
 
 
     def disconnect(self):
-        self._is_connected = False
         self.ui.methods.setEnabled(True)
         self.ui.endpointPages.setEnabled(True)
         self.ui.connect.setText(DISCONNECTED_TEXT)

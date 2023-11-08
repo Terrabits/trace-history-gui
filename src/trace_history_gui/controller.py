@@ -1,5 +1,8 @@
 class Controller:
 
+
+    # constructor
+
     def __init__(self, model=None, view=None):
         self.model = model
         self.view  = view
@@ -12,73 +15,81 @@ class Controller:
         self.view.show()
 
 
-    def toggle_connection(self):
+    # connect / disconnect
+
+    def connect(self):
+        if self.view.is_tcp:
+            return self.connect_tcp()
+        else:
+            return self.connect_visa()
+
+
+    def disconnect(self):
+        self.model.disconnect()
+        self.update_view()
+
+
+    def handle_connect_clicked(self):
         model = self.model
         view  = self.view
 
-
         # disconnect?
         if model.is_connected:
-            print('disconnecting')
-            model.disconnect()
-            self.update_view()
+            self.disconnect()
             return
-
-
-        # connect
 
         # validate inputs
         if not self.valid_connect_inputs():
             return
 
-        # make tcp connection?
-        if view.is_tcp:
-            # make tcp connection
-            host = view.tcp_host
-            print(f'connecting to tcp endpoint {host}')  # TODO: remove
-            if not model.connect_tcp(host):
-                # TODO
-                print(f'error connecting to TCP endpoint {host}')
-                return
+        # connect
+        if not self.connect():
+            # error
+            return
 
-
-        # make visa connection?
-        else:
-            # make visa connection
-            resource = view.visa_resource
-            print(f'connecting to visa resource {resource}')  # TODO: remove
-            if not model.connect_visa(resource):
-                # TODO
-                print(f'error connecting to VISA resource {resource}')
-                return
-
-
-        # connected
+        # success
         self.update_view()
         self.view.focus_set_file()
 
 
-    def start_measurement(self):
-        # validate inputs
+    def handle_start_measurement_clicked(self):
+        # check for valid inputs
         if not self.valid_measure_inputs():
             return
+
+        # start
         set_file    = self.view.set_file
         sweep_count = self.view.sweep_count
         timeout_s   = self.view.timeout_s
         data_path   = self.view.data_path
-        print( 'measure and save:')
-        print(f'  set_file:    {set_file}')
-        print(f'  sweep_count: {sweep_count}')
-        print(f'  timeout_s:   {timeout_s}')
-        print(f'  data_path:   {data_path.name}')
         self.model.measure_and_save(set_file, sweep_count, timeout_s, data_path)
 
 
     # helpers
 
+    def connect_tcp(self):
+        host = self.view.tcp_host
+        if self.model.connect_tcp(host):
+            # success
+            return True
+        # error
+        self.view.show_error(f"error connecting to TCP endpoint '{host}'")
+        return False
+
+
+    def connect_visa(self):
+        resource = self.view.visa_resource
+        if self.model.connect_visa(resource):
+            # success
+            return True
+        # error
+        self.view.show_error(f"error connecting to VISA resource '{resource}'")
+        return False
+
+
     def connect_signals_and_slots(self):
-        self.view.connect_clicked.connect(self.toggle_connection)
-        self.view.start_measurement_clicked.connect(self.start_measurement)
+        self.view.connect_clicked.connect(self.handle_connect_clicked)
+        self.view.start_measurement_clicked.connect(self.handle_start_measurement_clicked)
 
 
     def update_set_files(self):
@@ -102,17 +113,14 @@ class Controller:
 
         # check tcp host
         if view.is_tcp and not view.is_valid_tcp_host:
-            print('error: enter valid tcp host')
+            view.show_error('*Enter valid tcp host')
             view.focus_tcp_host()
-            view.shake()
             return False
 
         # check visa resource
         if view.is_visa and not view.visa_resource:
-            # TODO
-            print('error: enter visa resource')
+            view.show_error('*Enter visa resource')
             view.focus_visa_resource()
-            view.shake()
             return False
 
         # valid inputs
@@ -124,36 +132,31 @@ class Controller:
 
         # check sweep count
         if view.sweep_count is None:
-            print('error: enter sweep count')
+            view.show_error('*Enter sweep count')
             view.focus_sweep_count()
-            view.shake()
             return False
 
         # check sweep count is greater than zero
         if view.sweep_count == 0:
-            print('error: sweep count must be greater than zero')
+            view.show_error('*Sweep count must be greater than zero')
             view.focus_sweep_count()
-            view.shake()
             return False
 
         # check timeout
         if view.timeout_s is None:
-            print('error: enter timeout')
+            view.show_error('*Enter timeout')
             view.focus_timeout()
-            view.shake()
             return False
 
         # check timeout is greater than zero
         if view.timeout_s == 0:
-            print('error: timeout must be greater than zero')
+            view.show_error('*Timeout must be greater than zero')
             view.focus_timeout()
-            view.shake()
             return False
 
         if not view.data_path:
-            print('error: enter data path')
+            view.show_error('*Enter data path')
             view.focus_data_path()
-            view.shake()
             return False
 
         # valid inputs

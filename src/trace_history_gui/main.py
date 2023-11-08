@@ -26,7 +26,7 @@ def main():
 
 
     # create qt app
-    app = QApplication([])
+    app = QApplication()
 
 
     # setup mvc

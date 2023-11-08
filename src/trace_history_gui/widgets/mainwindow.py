@@ -1,3 +1,7 @@
+from .create_property  import create_property
+from .create_property  import create_property_for_attribute
+from .create_property  import create_property_for_checked
+from .create_property  import create_property_for_text
 from .mixins.ui_mixin  import create_ui_mixin
 from .ui_mainwindow    import Ui_MainWindow
 from PySide6.QtWidgets import QMainWindow
@@ -13,83 +17,36 @@ UiMixin = create_ui_mixin(Ui_MainWindow, QMainWindow)
 
 class MainWindow(ShakeMixin, UiMixin):
 
-    # is tcp
+    # tcp or visa
 
-    @property
-    def is_tcp(self):
-        return self.ui.connect.ui.isTcp.isChecked()
-
-    @is_tcp.setter
-    def is_tcp(self, checked):
-        self.ui.connect.ui.isTcp.setChecked(checked)
-
-
-    # is visa
-
-    @property
-    def is_visa(self):
-        return self.ui.connect.ui.isVisa.isChecked()
-
-    @is_visa.setter
-    def is_visa(self, checked):
-        self.ui.connect.ui.isVisa.setChecked(checked)
+    is_tcp  = create_property_for_checked('ui.connect.ui.isTcp')
+    is_visa = create_property_for_checked('ui.connect.ui.isVisa')
 
 
     # tcp host
 
-    @property
-    def is_valid_tcp_host(self):
-        return self.ui.connect.ui.tcpHost.hasAcceptableInput()
-
-
-    @property
-    def tcp_host(self):
-        return self.ui.connect.ui.tcpHost.text() or None
-
-
-    @tcp_host.setter
-    def tcp_host(self, host):
-        tcp_host = self.ui.connect.ui.tcpHost
-        tcp_host.setText(host.strip() or '')
+    is_valid_tcp_host = create_property('ui.connect.ui.tcpHost.hasAcceptableInput')
+    tcp_host          = create_property_for_text('ui.connect.ui.tcpHost')
 
 
     def focus_tcp_host(self):
-        tcp_host = self.ui.connect.ui.tcpHost
-        tcp_host.setFocus()
-        tcp_host.selectAll()
+        self.ui.connect.ui.tcpHost.setFocus()
+        self.ui.connect.ui.tcpHost.selectAll()
 
 
     # visa resource
 
-    @property
-    def visa_resource(self):
-        return self.ui.connect.ui.visaResource.text().strip() or None
-
-
-    @visa_resource.setter
-    def visa_resource(self, resource):
-        visa_resource = self.ui.connect.ui.visaResource
-        visa_resource.setText(resource.strip() or '')
+    visa_resource = create_property_for_text('ui.connect.ui.visaResource')
 
 
     def focus_visa_resource(self):
-        visa_resource = self.ui.connect.ui.visaResource
-        visa_resource.setFocus()
-        visa_resource.selectAll()
-
-
-    # is connected
-
-    @property
-    def is_connected(self):
-        return self.ui.connect.is_connected
+        self.ui.connect.ui.visaResource.setFocus()
+        self.ui.connect.ui.visaResource.selectAll()
 
 
     # signal: connect button clicked
 
-    @property
-    def connect_clicked(self):
-        return self.ui.connect.ui.connect.clicked
+    connect_clicked = create_property_for_attribute('ui.connect.ui.connect.clicked', read_only=True)
 
 
     # connect / disconnect
@@ -106,78 +63,47 @@ class MainWindow(ShakeMixin, UiMixin):
 
     # set file(s)
 
-    @property
-    def set_file(self):
-        return self.ui.measure.set_file
-
-
-    @set_file.setter
-    def set_file(self, set_file):
-        self.ui.measure.set_file = set_file
-
-
-    def update_set_files(self, set_files):
-        self.ui.measure.update_set_files(set_files)
-
-
-    def focus_set_file(self):
-        self.ui.measure.ui.setFile.setFocus()
+    set_file         = create_property_for_attribute('ui.measure.set_file')
+    focus_set_file   = create_property_for_attribute('ui.measure.ui.setFile.setFocus', read_only=True)
+    update_set_files = create_property_for_attribute('ui.measure.update_set_files',    read_only=True)
 
 
     # sweep count
 
-    @property
-    def sweep_count(self):
-        return self.ui.measure.ui.sweepCount.value
-
-
-    @sweep_count.setter
-    def sweep_count(self, sweep_count):
-        self.ui.measure.ui.sweepCount.value = sweep_count
+    sweep_count = create_property_for_attribute('ui.measure.ui.sweepCount.value')
 
 
     def focus_sweep_count(self):
-        sweep_count = self.ui.measure.ui.sweepCount
-        sweep_count.setFocus()
-        sweep_count.selectAll()
+        self.ui.measure.ui.sweepCount.setFocus()
+        self.ui.measure.ui.sweepCount.selectAll()
 
 
     # timeout, seconds
 
-    @property
-    def timeout_s(self):
-        return self.ui.measure.ui.timeout_s.value
-
-
-    @timeout_s.setter
-    def timeout_s(self, timeout_s):
-        self.ui.measure.ui.timeout_s.value = timeout_s
+    timeout_s = create_property_for_attribute('ui.measure.ui.timeout_s.value')
 
 
     def focus_timeout(self):
-        timeout = self.ui.measure.ui.timeout_s
-        timeout.setFocus()
-        timeout.selectAll()
+        self.ui.measure.ui.timeout_s.setFocus()
+        self.ui.measure.ui.timeout_s.selectAll()
 
 
     # data path
 
-    @property
-    def data_path(self):
-        return self.ui.measure.ui.dataPath.file_path
+    data_path       = create_property_for_attribute('ui.measure.ui.dataPath.file_path')
+    focus_data_path = create_property_for_attribute('ui.measure.ui.dataPath.setFocus', read_only=True)
 
 
-    @data_path.setter
-    def data_path(self, data_path):
-        self.ui.measure.ui.dataPath.file_path = data_path
+    # signal: start measurement button clicked
+
+    start_measurement_clicked = create_property_for_attribute('ui.measure.ui.start.clicked', read_only=True)
 
 
-    def focus_data_path(self):
-        self.ui.measure.ui.dataPath.setFocus()
+    # error messages
+
+    clear_error = create_property_for_attribute('ui.errorLabel.clear', read_only=True)
 
 
-    # signal start measurement button clicked
-
-    @property
-    def start_measurement_clicked(self):
-        return self.ui.measure.ui.start.clicked
+    def show_error(self, message):
+        self.ui.errorLabel.show_message(message)
+        self.shake()

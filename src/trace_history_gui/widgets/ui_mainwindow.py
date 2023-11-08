@@ -19,31 +19,49 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QSpacerIt
     QVBoxLayout, QWidget)
 
 from trace_history_gui.widgets.connect import Connect
+from trace_history_gui.widgets.error_label import ErrorLabel
 from trace_history_gui.widgets.measure import Measure
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(263, 361)
+        MainWindow.resize(544, 418)
+        font = QFont()
+        font.setPointSize(16)
+        MainWindow.setFont(font)
         self.centralWidget = QWidget(MainWindow)
         self.centralWidget.setObjectName(u"centralWidget")
-        self.verticalLayout = QVBoxLayout(self.centralWidget)
+        self.verticalLayout_2 = QVBoxLayout(self.centralWidget)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 12)
+        self.widget = QWidget(self.centralWidget)
+        self.widget.setObjectName(u"widget")
+        self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.connect = Connect(self.centralWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.connect = Connect(self.widget)
         self.connect.setObjectName(u"connect")
 
         self.verticalLayout.addWidget(self.connect)
 
-        self.measure = Measure(self.centralWidget)
+        self.measure = Measure(self.widget)
         self.measure.setObjectName(u"measure")
         self.measure.setEnabled(False)
 
         self.verticalLayout.addWidget(self.measure)
 
+
+        self.verticalLayout_2.addWidget(self.widget)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout.addItem(self.verticalSpacer)
+        self.verticalLayout_2.addItem(self.verticalSpacer)
+
+        self.errorLabel = ErrorLabel(self.centralWidget)
+        self.errorLabel.setObjectName(u"errorLabel")
+
+        self.verticalLayout_2.addWidget(self.errorLabel)
 
         MainWindow.setCentralWidget(self.centralWidget)
 
@@ -53,6 +71,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
+        self.errorLabel.setText("")
         pass
     # retranslateUi
 
