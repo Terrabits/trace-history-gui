@@ -6,6 +6,8 @@ class Model:
     # constructor
 
     def __init__(self):
+        self.delay_s = 30  # TODO: zero
+        self.display_measurement_complete_dialog = False
         self.disconnect()
 
 

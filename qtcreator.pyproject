@@ -4,7 +4,9 @@
 "files": [
   "qtcreator/connect.ui",
   "qtcreator/mainwindow.ui",
-  "qtcreator/measure.ui"
+  "qtcreator/measure.ui",
+  "qtcreator/settings.ui",
+  "qtcreator/timer.ui"
 ]
 
 

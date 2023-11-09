@@ -5,7 +5,11 @@ from trace_history import measure_and_save
 class Model:
 
 
+    # constructor
+
     def __init__(self):
+        self.delay_s = 0
+        self.display_measurement_complete_dialog = False
         self.vna = None
 
 

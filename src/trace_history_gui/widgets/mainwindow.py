@@ -3,6 +3,8 @@ from .create_property  import create_property_for_attribute
 from .create_property  import create_property_for_checked
 from .create_property  import create_property_for_text
 from .mixins.ui_mixin  import create_ui_mixin
+from .settings         import Settings
+from .timer            import Timer
 from .ui_mainwindow    import Ui_MainWindow
 from PySide6.QtWidgets import QMainWindow
 from qtrf.mixins       import ShakeMixin
@@ -17,7 +19,16 @@ UiMixin = create_ui_mixin(Ui_MainWindow, QMainWindow)
 
 class MainWindow(ShakeMixin, UiMixin):
 
-    # tcp or visa
+
+    # constructor
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.settings = Settings(self)
+        self.timer    = Timer(self)
+
+
+    # conection method
 
     is_tcp  = create_property_for_checked('ui.connect.ui.isTcp')
     is_visa = create_property_for_checked('ui.connect.ui.isVisa')
@@ -99,7 +110,7 @@ class MainWindow(ShakeMixin, UiMixin):
     start_measurement_clicked = create_property_for_attribute('ui.measure.ui.start.clicked', read_only=True)
 
 
-    # error messages
+    # status messages
 
     clear_error = create_property_for_attribute('ui.errorLabel.clear', read_only=True)
 
@@ -107,3 +118,28 @@ class MainWindow(ShakeMixin, UiMixin):
     def show_error(self, message):
         self.ui.errorLabel.show_message(message)
         self.shake()
+
+
+    def show_success(self, message):
+        self.ui.errorLabel.show_message(message, 'darkgreen')
+
+    # settings dialog
+
+    delay_s = create_property_for_attribute('settings.ui.delay_s.value')
+
+    display_measurement_complete_dialog = create_property_for_checked('settings.ui.displayMeasurementCompleteDialog')
+
+    open_settings_dialog = create_property_for_attribute('settings.open')
+
+    settings_dialog_finished = create_property_for_attribute('settings.finished')
+
+    settings_accepted = create_property_for_attribute('settings.is_accepted')
+
+
+    # timer dialog
+
+    start_timer = create_property_for_attribute('timer.start')
+
+    timer_finished = create_property_for_attribute('timer.finished')
+
+    timer_cancelled = create_property_for_attribute('timer.cancelled')
