@@ -65,8 +65,9 @@ class Model:
 
 
     def get_set_files(self):
-        return self.vna.set_files
+        return self.vna.sets
 
 
     def measure_and_save(self, set_file, sweep_count, timeout_s, data_path):
-        measure_and_save()
+        timeout_ms = timeout_s * 1000
+        measure_and_save(self.vna, sweep_count, set_file, timeout_ms, data_path)
