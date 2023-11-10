@@ -11,11 +11,17 @@ class Controller:
         self.view  = view
 
         # init view
-        self.view.sweep_count = 100
-        self.view.timeout_s   = 30.0
-        self.view.data_path   = 'data'
+        view.sweep_count = 100
+        view.timeout_s   = 30.0
+        view.data_path   = 'data'
         self.connect_signals_and_slots()
-        self.view.show()
+
+        # connect to localhost?
+        if model.connect_tcp('localhost'):
+            view.ui.connect.setVisible(False)
+            self.update_view()
+
+        view.show()
 
 
     # connect / disconnect
