@@ -1,13 +1,21 @@
-from trace_history_gui import model
+from trace_history_gui.model.settings_mixin import SettingsMixin
 
 
-class Model:
+class Model(SettingsMixin):
+
 
     # constructor
 
     def __init__(self):
-        self.delay_s = 30  # TODO: zero
-        self.display_measurement_complete_dialog = False
+
+        # init settings
+        super().__init__()
+
+        # init mock vna properties
+        self.vna_id    = 'Rohde-Schwarz,ZNB8-2Port,1311601042100005,1.30.12'
+        self.set_files = ['MySet1.znx', 'MySet2.znx', 'MySet3.znx']
+
+        # start disconnected
         self.disconnect()
 
 
@@ -19,31 +27,35 @@ class Model:
 
 
     def connect_tcp(self, host):
-        self.method   = 'TCP'
-        self.endpoint = host
-        self.vna      = object()
-        return self.is_connected
+
+        # connect
+        self.vna = object()
+
+        # success
+        self.connection_method = 'tcp'
+        self.tcp_host          = host
+        return True
 
 
     def connect_visa(self, resource):
-        self.method   = 'VISA'
-        self.endpoint = resource
-        self.vna      = object()
-        return self.is_connected
+
+        # connect
+        self.vna = object()
+
+        # success
+        self.connection_method = 'visa'
+        self.visa_resource     = resource
+        return True
 
 
     def disconnect(self):
-        self.method   = None
-        self.endpoint = None
-        self.vna      = None
-        self.set_file = None
-        self.sweep_count = None
-        self.timeout_s   = None
-        self.data_path   = None
+        self.vna = None
 
+
+    # set files
 
     def get_set_files(self):
-        return ['Set1', 'Set2', 'Set3']
+        return self.set_files
 
 
     # measure
@@ -56,4 +68,4 @@ class Model:
         self.set_file    = set_file
         self.sweep_count = sweep_count
         self.timeout_s   = timeout_s
-        self.data_path   = data_path
+        self.data_path   = str(data_path)

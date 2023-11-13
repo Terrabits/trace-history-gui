@@ -2,6 +2,7 @@ from .create_property  import create_property
 from .create_property  import create_property_for_attribute
 from .create_property  import create_property_for_checked
 from .create_property  import create_property_for_text
+from .create_property  import create_property_for_visible
 from .mixins.ui_mixin  import create_ui_mixin
 from .settings         import Settings
 from .timer            import Timer
@@ -26,6 +27,11 @@ class MainWindow(ShakeMixin, UiMixin):
         super().__init__(parent)
         self.settings = Settings(self)
         self.timer    = Timer(self)
+
+
+    # connect widget
+
+    connect_visible = create_property_for_visible('ui.connect')
 
 
     # conection method
@@ -110,6 +116,11 @@ class MainWindow(ShakeMixin, UiMixin):
     start_measurement_clicked = create_property_for_attribute('ui.measure.ui.start.clicked', read_only=True)
 
 
+    # signal: settings clicked
+
+    settings_clicked = create_property_for_attribute('ui.measure.ui.settings.clicked')
+
+
     # status messages
 
     clear_error = create_property_for_attribute('ui.errorLabel.clear', read_only=True)
@@ -133,7 +144,7 @@ class MainWindow(ShakeMixin, UiMixin):
 
     settings_dialog_finished = create_property_for_attribute('settings.finished')
 
-    settings_accepted = create_property_for_attribute('settings.is_accepted')
+    settings_accepted = create_property_for_attribute('settings.is_accepted', read_only=True)
 
 
     # timer dialog

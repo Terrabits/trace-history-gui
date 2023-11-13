@@ -10,23 +10,22 @@ class Controller:
         self.model = model
         self.view  = view
 
+        # load saved settings
+        model.load_settings()
+        self.update_view()
+
         # init view
-        view.sweep_count = 100
-        view.timeout_s   = 30.0
-        view.data_path   = 'data'
         self.connect_signals_and_slots()
-
-        # connect to localhost?
-        if model.connect_tcp('localhost'):
-            view.ui.connect.setVisible(False)
-            self.update_view()
-
+        self.try_connect_tcp_localhost()
         view.show()
 
 
     # connect / disconnect
 
     def connect(self):
+        # clear error messages
+        self.view.clear_error()
+
         # validate input
         if not self.validate_connect_input():
             return False
@@ -39,6 +38,7 @@ class Controller:
 
 
     def disconnect(self):
+        self.view.clear_error()
         self.model.disconnect()
         self.update_view()
 
@@ -58,7 +58,6 @@ class Controller:
             return
 
         # success
-        self.update_view()
         self.view.focus_set_file()
 
 
@@ -69,7 +68,10 @@ class Controller:
         if not self.validate_measure_input():
             return
 
-        # use a timer?
+        # clear error messages
+        self.view.clear_error()
+
+        # start delay timer?
         delay_s = self.model.delay_s
         if delay_s:
             self.view.timer.start(delay_s)
@@ -89,28 +91,30 @@ class Controller:
     # helpers
 
     def connect_tcp(self):
-        # connect
         host = self.view.tcp_host
         if not self.model.connect_tcp(host):
             # error
-            self.view.show_error(f"error connecting to TCP endpoint '{host}'")
+            self.view.show_error(f"*Error connecting to TCP endpoint '{host}'")
             return False
 
         # success
+        self.model.save_settings()
         self.update_view()
+        self.view.show_success(f'*Connected to {self.model.vna_id}')
         return True
 
 
     def connect_visa(self):
         resource = self.view.visa_resource
-
-        # connect
         if not self.model.connect_visa(resource):
-            self.view.show_error(f"error connecting to VISA resource '{resource}'")
+            # error
+            self.view.show_error(f"*Error connecting to VISA resource '{resource}'")
             return False
 
         # success
+        self.model.save_settings()
         self.update_view()
+        self.view.show_success(f'*Connected to {self.model.vna_id}')
         return True
 
 
@@ -121,17 +125,25 @@ class Controller:
             self.view.timeout_s,
             self.view.data_path
         )
-        self.view.show_success('Measurement complete')
+        self.model.save_settings()
+        self.view.show_success('*Measurement complete')
 
 
 
     def connect_signals_and_slots(self):
         view = self.view
-        view.connect_clicked.connect(self.toggle_connect)
+
+        # main window
+        view.connect_clicked          .connect(self.toggle_connect)
         view.start_measurement_clicked.connect(self.start_measurement)
-        view.settings_dialog_finished.connect(self.update_model_settings_from_view)
-        view.timer.accepted.connect(self.measure_and_save)
-        view.timer.rejected.connect(self.show_timer_cancelled_error)
+
+        # settings
+        view.settings_clicked         .connect(self.open_settings_dialog)
+        view.settings_dialog_finished .connect(self.update_model_settings_from_view)
+
+        # timer
+        view.timer.accepted           .connect(self.measure_and_save)
+        view.timer.rejected           .connect(self.show_timer_cancelled_error)
 
 
     def update_set_files(self):
@@ -156,8 +168,14 @@ class Controller:
         view  = self.view
 
         # update settings
-        view.delay_s = model.delay_s
+        view.is_tcp        = model.connection_method == 'tcp'
+        view.tcp_host      = model.tcp_host
+        view.visa_resource = model.visa_resource
+        view.delay_s       = model.delay_s
         view.display_measurement_complete_dialog = model.display_measurement_complete_dialog
+        view.sweep_count   = model.sweep_count
+        view.timeout_s     = model.timeout_s
+        view.data_path     = model.data_path
 
         # disconnect?
         if not model.is_connected:
@@ -167,6 +185,7 @@ class Controller:
         # connected
         view.connect()
         self.update_set_files()
+        view.set_file = model.set_file
 
 
     def validate_connect_input(self):
@@ -227,3 +246,17 @@ class Controller:
 
     def show_timer_cancelled_error(self):
         self.view.show_error('*Measurement cancelled')
+
+
+    def try_connect_tcp_localhost(self):
+        model = self.model
+        view  = self.view
+
+        # try to connect to localhost
+        if not model.connect_tcp('localhost'):
+            # failed
+            return
+
+        # success; running on-instrument
+        view.connect_visible = False
+        self.update_view()

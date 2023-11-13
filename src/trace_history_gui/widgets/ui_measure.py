@@ -25,7 +25,7 @@ class Ui_Measure(object):
     def setupUi(self, Measure):
         if not Measure.objectName():
             Measure.setObjectName(u"Measure")
-        Measure.resize(318, 213)
+        Measure.resize(368, 213)
         self.formLayout = QFormLayout(Measure)
         self.formLayout.setObjectName(u"formLayout")
         self.setFileLabel = QLabel(Measure)
@@ -73,7 +73,9 @@ class Ui_Measure(object):
         self.startWidget = QWidget(Measure)
         self.startWidget.setObjectName(u"startWidget")
         self.horizontalLayout = QHBoxLayout(self.startWidget)
-        self.horizontalLayout.setSpacing(0)
+#ifndef Q_OS_MAC
+        self.horizontalLayout.setSpacing(-1)
+#endif
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.start = QPushButton(self.startWidget)
@@ -85,13 +87,17 @@ class Ui_Measure(object):
 
         self.horizontalLayout.addItem(self.startSpacer)
 
+        self.settings = QPushButton(self.startWidget)
+        self.settings.setObjectName(u"settings")
+
+        self.horizontalLayout.addWidget(self.settings)
+
 
         self.formLayout.setWidget(4, QFormLayout.FieldRole, self.startWidget)
 
         QWidget.setTabOrder(self.setFile, self.sweepCount)
         QWidget.setTabOrder(self.sweepCount, self.timeout_s)
-        QWidget.setTabOrder(self.timeout_s, self.dataPath)
-        QWidget.setTabOrder(self.dataPath, self.start)
+        QWidget.setTabOrder(self.timeout_s, self.start)
 
         self.retranslateUi(Measure)
 
@@ -108,5 +114,6 @@ class Ui_Measure(object):
         self.setFile.setItemText(0, QCoreApplication.translate("Measure", u"<Current Set>", None))
 
         self.start.setText(QCoreApplication.translate("Measure", u"Start", None))
+        self.settings.setText(QCoreApplication.translate("Measure", u"\u2699\ufe0f", None))
     # retranslateUi
 

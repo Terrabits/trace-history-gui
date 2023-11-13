@@ -27,6 +27,13 @@ def create_property_for_checked(attribute):
     return create_property(get, set)
 
 
+def create_property_for_visible(attribute):
+    get = f'{attribute}.visible'
+    set = f'{attribute}.setVisible'
+    return create_property(get, set)
+
+
+
 def create_property_for_attribute(attribute, read_only=False):
     # get
     get = lambda self: getattr(self, attribute)

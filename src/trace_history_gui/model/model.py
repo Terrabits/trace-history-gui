@@ -1,17 +1,20 @@
-from rohdeschwarz.instruments.vna import Vna
-from trace_history import measure_and_save
+from   .settings_mixin              import SettingsMixin
+import json
+from   rohdeschwarz.instruments.vna import Vna
+from   trace_history                import measure_and_save
 
 
-class Model:
+class Model(SettingsMixin):
 
 
     # constructor
 
     def __init__(self):
-        self.delay_s = 0
-        self.display_measurement_complete_dialog = False
+        super().__init__()
         self.vna = None
 
+
+    # connect / disconnect
 
     @property
     def is_connected(self):
@@ -32,7 +35,9 @@ class Model:
             return False
 
         # success
-        self.vna = vna
+        self.vna               = vna
+        self.connection_method = 'tcp'
+        self.tcp_host          = host
         return True
 
 
@@ -50,7 +55,9 @@ class Model:
             return False
 
         # success
-        self.vna = vna
+        self.vna               = vna
+        self.connection_method = 'visa'
+        self.visa_resource     = resource
         return True
 
 
@@ -60,14 +67,34 @@ class Model:
             return
 
         # disconnect
+        self.vna.local()
         self.vna.close()
         self.vna = None
 
 
-    def get_set_files(self):
-        return self.vna.sets
+    # vna id string
 
+    @property
+    def vna_id(self):
+        return self.vna.id_string()
+
+
+    # set files
+
+    def get_set_files(self):
+        return self.vna.set_files
+
+
+    # measure with trace history
 
     def measure_and_save(self, set_file, sweep_count, timeout_s, data_path):
+
+        # save settings
+        self.set_file    = set_file
+        self.sweep_count = sweep_count
+        self.timeout_s   = timeout_s
+        self.data_path   = str(data_path)
+
+        # measure
         timeout_ms = timeout_s * 1000
         measure_and_save(self.vna, sweep_count, set_file, timeout_ms, data_path)
