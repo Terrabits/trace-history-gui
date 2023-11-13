@@ -119,15 +119,23 @@ class Controller:
 
 
     def measure_and_save(self):
+        # measure
         self.model.measure_and_save(
             self.view.set_file,
             self.view.sweep_count,
             self.view.timeout_s,
             self.view.data_path
         )
-        self.model.save_settings()
-        self.view.show_success('*Measurement complete')
 
+        # success; save user settings
+        self.model.save_settings()
+
+        # show success message
+        if self.model.display_measurement_complete_dialog:
+            # TODO
+            self.view.show_measurement_complete_dialog()
+        else:
+            self.view.show_success('*Measurement complete')
 
 
     def connect_signals_and_slots(self):

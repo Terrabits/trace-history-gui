@@ -3,6 +3,7 @@ from .create_property  import create_property_for_attribute
 from .create_property  import create_property_for_checked
 from .create_property  import create_property_for_text
 from .create_property  import create_property_for_visible
+from .measurement_complete_dialog import MeasurementCompleteDialog
 from .mixins.ui_mixin  import create_ui_mixin
 from .settings         import Settings
 from .timer            import Timer
@@ -25,6 +26,7 @@ class MainWindow(ShakeMixin, UiMixin):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.measurement_complete_dialog = MeasurementCompleteDialog(self)
         self.settings = Settings(self)
         self.timer    = Timer(self)
 
@@ -140,9 +142,9 @@ class MainWindow(ShakeMixin, UiMixin):
 
     display_measurement_complete_dialog = create_property_for_checked('settings.ui.displayMeasurementCompleteDialog')
 
-    open_settings_dialog = create_property_for_attribute('settings.open')
+    open_settings_dialog = create_property_for_attribute('settings.open', read_only=True)
 
-    settings_dialog_finished = create_property_for_attribute('settings.finished')
+    settings_dialog_finished = create_property_for_attribute('settings.finished', read_only=True)
 
     settings_accepted = create_property_for_attribute('settings.is_accepted', read_only=True)
 
@@ -154,3 +156,8 @@ class MainWindow(ShakeMixin, UiMixin):
     timer_finished = create_property_for_attribute('timer.finished')
 
     timer_cancelled = create_property_for_attribute('timer.cancelled')
+
+
+    # measurement complete dialog
+
+    show_measurement_complete_dialog = create_property_for_attribute('measurement_complete_dialog.show', read_only=True)
