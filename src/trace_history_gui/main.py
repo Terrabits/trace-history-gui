@@ -3,6 +3,7 @@ from   .controller       import Controller
 from   .model            import Model
 from   .test.mock.model  import Model as MockModel
 from   .widgets          import MainWindow
+import code
 from   PySide6.QtWidgets import QApplication
 import sys
 
@@ -20,7 +21,7 @@ def main():
     # parse command line args
     args = parse_args()
 
-    # process --demo
+    # --demo?
     if args.demo:
         Model = MockModel
 
@@ -35,8 +36,23 @@ def main():
     controller = Controller(model, view)
 
 
-    # start app
-    sys.exit(app.exec())
+    # run app
+    return_code = app.exec()
+
+
+    # --interact?
+    if args.interact:
+        code.interact('', local={
+            'app':   app,
+            'args':  args,
+            'model': model,
+            'view':  view,
+            'controller': controller,
+        })
+        sys.exit(0)
+
+    # exit
+    sys.exit(return_code)
 
 
 if __name__ == '__main__':
