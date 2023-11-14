@@ -41,7 +41,7 @@ dev = ["pyinstaller >=6.1, <7"]
 
 
 [project.scripts]
-trace-history = "trace_history_gui.main:main"
+trace-history-gui = "trace_history_gui.main:main"
 
 
 [tool.setuptools.dynamic]
