@@ -40,10 +40,14 @@ dynamic = [
 dev = ["pyinstaller >=6.1, <7"]
 
 
+[project.scripts]
+trace-history = "trace_history_gui.main:main"
+
+
 [tool.setuptools.dynamic]
 readme  = { file = ["README.md"] }
 version = { attr = "trace_history_gui.VERSION" }
 
 
-[project.scripts]
-trace-history = "trace_history_gui.main:main"
+[tool.setuptools.package-dir]
+trace_history_gui = 'src'
