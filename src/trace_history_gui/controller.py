@@ -132,7 +132,6 @@ class Controller:
 
         # show success message
         if self.model.display_measurement_complete_dialog:
-            # TODO
             self.view.show_measurement_complete_dialog()
         else:
             self.view.show_success('*Measurement complete')
