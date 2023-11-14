@@ -6,7 +6,9 @@ class Controller:
 
     # constructor
 
-    def __init__(self, model=None, view=None):
+    def __init__(self, model, view):
+
+        # save model, view
         self.model = model
         self.view  = view
 
@@ -14,9 +16,11 @@ class Controller:
         model.load_settings()
         self.update_view()
 
+        # connect?
+        self.try_to_connect()
+
         # init view
         self.connect_signals_and_slots()
-        self.try_connect_tcp_localhost()
         view.show()
 
 
@@ -255,15 +259,48 @@ class Controller:
         self.view.show_error('*Measurement cancelled')
 
 
-    def try_connect_tcp_localhost(self):
-        model = self.model
-        view  = self.view
+    def try_to_connect(self):
+
+        # try localhost
+        if self.connect_to_tcp_localhost():
+            return True
+
+        # try last connection
+        return self.connect_to_last()
+
+
+    def connect_to_tcp_localhost(self):
 
         # try to connect to localhost
-        if not model.connect_tcp('localhost'):
+        if not self.model.connect_tcp('localhost'):
             # failed
-            return
+            return False
 
         # success; running on-instrument
-        view.connect_visible = False
+        self.view.connect_visible = False
         self.update_view()
+        return True
+
+
+    def connect_to_last(self):
+        model = self.model
+
+        # connect to last tcp?
+        if model.connection_method == 'tcp':
+            host = model.tcp_host
+            if not model.connect_tcp(host):
+                # failed
+                return False
+
+
+        # connect to last visa?
+        else:
+            resource = model.visa_resource
+            if not model.connect_visa(resource):
+                # failed
+                return False
+
+
+        # connected; update view
+        self.update_view()
+        return True
