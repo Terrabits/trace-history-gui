@@ -72,7 +72,6 @@ class SettingsMixin:
     def settings(self):
         settings = {}
         for attr in ATTRIBUTES:
-            print(f'settings[{attr}] = {getattr(self, attr)}')
             settings[attr] = getattr(self, attr)
         return settings
 
@@ -80,5 +79,4 @@ class SettingsMixin:
     @settings.setter
     def settings(self, settings):
         for attr, value in settings.items():
-            print(f'self.{attr} = {value}')
             setattr(self, attr, value)
