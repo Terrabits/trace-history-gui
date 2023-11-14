@@ -37,7 +37,7 @@ dynamic = [
 
 
 [project.optional-dependencies]
-dev = ["pyinstaller >=6.1"]
+dev = ["pyinstaller >=6.1, <7"]
 
 
 [tool.setuptools.dynamic]
