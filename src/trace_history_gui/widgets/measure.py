@@ -17,7 +17,6 @@ class Measure(UiMixin):
 
     def __init__(self, parent=None):
         UiMixin.__init__(self, parent)
-        self.ui.timeout_s.decimal_places = 1
         self.ui.dataPath.save = True
         self.clear_set_files()
 

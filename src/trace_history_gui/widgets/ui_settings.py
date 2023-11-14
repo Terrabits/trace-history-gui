@@ -26,26 +26,36 @@ class Ui_Settings(object):
         if not Settings.objectName():
             Settings.setObjectName(u"Settings")
         Settings.setWindowModality(Qt.ApplicationModal)
-        Settings.resize(219, 160)
+        Settings.resize(256, 165)
         self.verticalLayout = QVBoxLayout(Settings)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.delayWidget = QWidget(Settings)
-        self.delayWidget.setObjectName(u"delayWidget")
-        self.formLayout = QFormLayout(self.delayWidget)
+        self.formInput = QWidget(Settings)
+        self.formInput.setObjectName(u"formInput")
+        self.formLayout = QFormLayout(self.formInput)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setContentsMargins(0, 0, 0, 0)
-        self.delayLabel = QLabel(self.delayWidget)
+        self.delayLabel = QLabel(self.formInput)
         self.delayLabel.setObjectName(u"delayLabel")
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.delayLabel)
 
-        self.delay_s = SecondsLineEdit(self.delayWidget)
+        self.delay_s = SecondsLineEdit(self.formInput)
         self.delay_s.setObjectName(u"delay_s")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.delay_s)
 
+        self.timeoutLabel = QLabel(self.formInput)
+        self.timeoutLabel.setObjectName(u"timeoutLabel")
 
-        self.verticalLayout.addWidget(self.delayWidget)
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.timeoutLabel)
+
+        self.timeout_s = SecondsLineEdit(self.formInput)
+        self.timeout_s.setObjectName(u"timeout_s")
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.timeout_s)
+
+
+        self.verticalLayout.addWidget(self.formInput)
 
         self.displayMeasurementCompleteDialog = QCheckBox(Settings)
         self.displayMeasurementCompleteDialog.setObjectName(u"displayMeasurementCompleteDialog")
@@ -91,7 +101,8 @@ class Ui_Settings(object):
     def retranslateUi(self, Settings):
         Settings.setWindowTitle(QCoreApplication.translate("Settings", u"Settings", None))
         self.delayLabel.setText(QCoreApplication.translate("Settings", u"Delay", None))
-        self.displayMeasurementCompleteDialog.setText(QCoreApplication.translate("Settings", u"Measurement complete dialog", None))
+        self.timeoutLabel.setText(QCoreApplication.translate("Settings", u"Timeout", None))
+        self.displayMeasurementCompleteDialog.setText(QCoreApplication.translate("Settings", u"Show measurement complete dialog", None))
         self.cancel.setText(QCoreApplication.translate("Settings", u"Cancel", None))
         self.ok.setText(QCoreApplication.translate("Settings", u"Ok", None))
     # retranslateUi

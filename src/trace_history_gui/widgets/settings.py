@@ -19,8 +19,8 @@ class Settings(UiMixin):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.ui.delay_s.decimal_places = 0
-        self.ui.delay_s.value          = 0
+        self.ui.delay_s.decimal_places   = 0
+        self.ui.timeout_s.decimal_places = 0
         self.ui.cancel.clicked.connect(self.reject)
         self.ui.ok.clicked.connect(self.accept)
 

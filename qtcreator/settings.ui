@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>219</width>
-    <height>160</height>
+    <width>256</width>
+    <height>165</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QWidget" name="delayWidget" native="true">
+    <widget class="QWidget" name="formInput" native="true">
      <layout class="QFormLayout" name="formLayout">
       <property name="leftMargin">
        <number>0</number>
@@ -42,13 +42,23 @@
       <item row="0" column="1">
        <widget class="SecondsLineEdit" name="delay_s"/>
       </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="timeoutLabel">
+        <property name="text">
+         <string>Timeout</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="SecondsLineEdit" name="timeout_s"/>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="displayMeasurementCompleteDialog">
      <property name="text">
-      <string>Measurement complete dialog</string>
+      <string>Show measurement complete dialog</string>
      </property>
     </widget>
    </item>

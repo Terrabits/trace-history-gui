@@ -99,7 +99,7 @@ class MainWindow(ShakeMixin, UiMixin):
 
     # timeout, seconds
 
-    timeout_s = create_property_for_attribute('ui.measure.ui.timeout_s.value')
+    timeout_s = create_property_for_attribute('settings.ui.timeout_s.value')
 
 
     def focus_timeout(self):

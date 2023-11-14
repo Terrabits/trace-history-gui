@@ -19,13 +19,13 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QGroupBox,
     QHBoxLayout, QLabel, QPushButton, QSizePolicy,
     QSpacerItem, QWidget)
 
-from qtrf.widgets import (FileWidget, IntValueLineEdit, SecondsLineEdit)
+from qtrf.widgets import (FileWidget, IntValueLineEdit)
 
 class Ui_Measure(object):
     def setupUi(self, Measure):
         if not Measure.objectName():
             Measure.setObjectName(u"Measure")
-        Measure.resize(368, 213)
+        Measure.resize(368, 174)
         self.formLayout = QFormLayout(Measure)
         self.formLayout.setObjectName(u"formLayout")
         self.setFileLabel = QLabel(Measure)
@@ -33,42 +33,32 @@ class Ui_Measure(object):
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.setFileLabel)
 
-        self.sweepCountLabel = QLabel(Measure)
-        self.sweepCountLabel.setObjectName(u"sweepCountLabel")
-
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.sweepCountLabel)
-
-        self.timeoutLabel = QLabel(Measure)
-        self.timeoutLabel.setObjectName(u"timeoutLabel")
-
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.timeoutLabel)
-
-        self.dataPathLabel = QLabel(Measure)
-        self.dataPathLabel.setObjectName(u"dataPathLabel")
-
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.dataPathLabel)
-
-        self.dataPath = FileWidget(Measure)
-        self.dataPath.setObjectName(u"dataPath")
-        self.dataPath.setMinimumSize(QSize(250, 0))
-
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.dataPath)
-
         self.setFile = QComboBox(Measure)
         self.setFile.addItem("")
         self.setFile.setObjectName(u"setFile")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.setFile)
 
+        self.sweepCountLabel = QLabel(Measure)
+        self.sweepCountLabel.setObjectName(u"sweepCountLabel")
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.sweepCountLabel)
+
         self.sweepCount = IntValueLineEdit(Measure)
         self.sweepCount.setObjectName(u"sweepCount")
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.sweepCount)
 
-        self.timeout_s = SecondsLineEdit(Measure)
-        self.timeout_s.setObjectName(u"timeout_s")
+        self.dataPathLabel = QLabel(Measure)
+        self.dataPathLabel.setObjectName(u"dataPathLabel")
 
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.timeout_s)
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.dataPathLabel)
+
+        self.dataPath = FileWidget(Measure)
+        self.dataPath.setObjectName(u"dataPath")
+        self.dataPath.setMinimumSize(QSize(250, 0))
+
+        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.dataPath)
 
         self.startWidget = QWidget(Measure)
         self.startWidget.setObjectName(u"startWidget")
@@ -93,11 +83,10 @@ class Ui_Measure(object):
         self.horizontalLayout.addWidget(self.settings)
 
 
-        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.startWidget)
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.startWidget)
 
         QWidget.setTabOrder(self.setFile, self.sweepCount)
-        QWidget.setTabOrder(self.sweepCount, self.timeout_s)
-        QWidget.setTabOrder(self.timeout_s, self.start)
+        QWidget.setTabOrder(self.sweepCount, self.start)
 
         self.retranslateUi(Measure)
 
@@ -108,12 +97,11 @@ class Ui_Measure(object):
         Measure.setWindowTitle(QCoreApplication.translate("Measure", u"GroupBox", None))
         Measure.setTitle(QCoreApplication.translate("Measure", u"Measure", None))
         self.setFileLabel.setText(QCoreApplication.translate("Measure", u"Set File", None))
-        self.sweepCountLabel.setText(QCoreApplication.translate("Measure", u"Sweep Count", None))
-        self.timeoutLabel.setText(QCoreApplication.translate("Measure", u"Timeout", None))
-        self.dataPathLabel.setText(QCoreApplication.translate("Measure", u"Data Path", None))
         self.setFile.setItemText(0, QCoreApplication.translate("Measure", u"<Current Set>", None))
 
+        self.sweepCountLabel.setText(QCoreApplication.translate("Measure", u"Sweep Count", None))
+        self.dataPathLabel.setText(QCoreApplication.translate("Measure", u"Data Path", None))
         self.start.setText(QCoreApplication.translate("Measure", u"Start", None))
-        self.settings.setText(QCoreApplication.translate("Measure", u"\u2699\ufe0f", None))
+        self.settings.setText(QCoreApplication.translate("Measure", u"Settings", None))
     # retranslateUi
 
