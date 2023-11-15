@@ -8,7 +8,7 @@ cd "$ROOT_DIR"
 
 # paths
 INPUT_DIR="$ROOT_DIR/qtcreator"
-OUTPUT_DIR="$ROOT_DIR/src/trace_history_gui/widgets"
+OUTPUT_DIR="$ROOT_DIR/src/widgets"
 
 
 # update function
