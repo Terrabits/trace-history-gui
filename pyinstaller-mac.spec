@@ -2,10 +2,7 @@
 
 
 # constants
-APP_NAME = 'R&S Trace History GUI'
-
-
-# names
+APP_NAME       = 'R&S Trace History GUI'
 EXE_NAME       = APP_NAME
 FOLDER_NAME    = APP_NAME
 MACOS_APP_NAME = f'{APP_NAME}.app'
