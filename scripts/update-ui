@@ -8,22 +8,26 @@ cd "$ROOT_DIR"
 
 # paths
 INPUT_DIR="$ROOT_DIR/qtcreator"
-OUTPUT_DIR="$ROOT_DIR/src/widgets"
+OUTPUT_DIR="$ROOT_DIR/trace_history_gui/widgets"
 
 
 # update function
 function update() {
-  NAME=$1
+  NAME="$1"
   pyside6-uic "$INPUT_DIR/$NAME.ui" > "$OUTPUT_DIR/ui_$NAME.py"
 }
 
 
-# update each ui component
+# update ui
+
 cd qtcreator
+
 for file in *.ui; do
+
   # remove .ui extension to get name
   name="${file:0:-3}"
 
   # update
   update "$name"
+
 done
