@@ -1,7 +1,7 @@
-from   .settings_mixin              import SettingsMixin
+from   .settings_mixin import SettingsMixin
 import json
-from   rohdeschwarz.instruments.vna import Vna
-from   trace_history                import measure_and_save
+from   rohdeschwarz.instruments.vna   import Vna
+from   trace_history.measure_and_save import measure_and_save
 
 
 class Model(SettingsMixin):
