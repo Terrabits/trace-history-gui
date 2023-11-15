@@ -1,3 +1,4 @@
+from trace_history_gui import VERSION
 from trace_history_gui.widgets.create_property  import create_property_for_attribute
 
 
@@ -11,6 +12,9 @@ class Controller:
         # save model, view
         self.model = model
         self.view  = view
+
+        # set window title
+        view.title = f'R&S Trace History GUI v{VERSION}'
 
         # load saved settings
         model.load_settings()

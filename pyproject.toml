@@ -50,4 +50,4 @@ version = { attr = "trace_history_gui.VERSION" }
 
 
 [tool.setuptools.package-dir]
-trace_history_gui = 'src'
+trace_history_gui = 'trace_history_gui'

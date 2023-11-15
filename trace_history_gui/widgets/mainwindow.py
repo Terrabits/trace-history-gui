@@ -3,6 +3,7 @@ from .create_property  import create_property_for_attribute
 from .create_property  import create_property_for_checked
 from .create_property  import create_property_for_text
 from .create_property  import create_property_for_visible
+from .create_property  import create_property_for_window_title
 from .measurement_complete_dialog import MeasurementCompleteDialog
 from .mixins.ui_mixin  import create_ui_mixin
 from .settings         import Settings
@@ -30,6 +31,8 @@ class MainWindow(ShakeMixin, UiMixin):
         self.settings = Settings(self)
         self.timer    = Timer(self)
 
+
+    title = create_property_for_window_title()
 
     # connect widget
 

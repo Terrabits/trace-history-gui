@@ -33,6 +33,11 @@ def create_property_for_visible(attribute):
     return create_property(get, set)
 
 
+def create_property_for_window_title():
+    get = 'windowTitle'
+    set = 'setWindowTitle'
+    return create_property(get, set)
+
 
 def create_property_for_attribute(attribute, read_only=False):
     # get
