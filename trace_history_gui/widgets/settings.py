@@ -2,7 +2,7 @@ from .create_property  import create_property_for_attribute
 from .create_property  import create_property_for_checked
 from .mixins.ui_mixin  import create_ui_mixin
 from .ui_settings      import Ui_Settings
-from PySide6.QtWidgets import QDialog
+from PySide2.QtWidgets import QDialog
 
 
 # create base class

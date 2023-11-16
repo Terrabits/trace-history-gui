@@ -1,6 +1,6 @@
 from .mixins.ui_mixin  import create_ui_mixin
 from .ui_measure       import Ui_Measure
-from PySide6.QtWidgets import QGroupBox
+from PySide2.QtWidgets import QGroupBox
 
 
 # constants

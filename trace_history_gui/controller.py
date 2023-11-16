@@ -14,7 +14,7 @@ class Controller:
         self.view  = view
 
         # set window title
-        view.title = f'R&S Trace History GUI v{VERSION}'
+        view.title = f'R&S Trace History GUI v{VERSION} Win7 Build'
 
         # load saved settings
         model.load_settings()

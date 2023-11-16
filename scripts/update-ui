@@ -14,7 +14,7 @@ OUTPUT_DIR="$ROOT_DIR/trace_history_gui/widgets"
 # update function
 function update() {
   NAME="$1"
-  pyside6-uic "$INPUT_DIR/$NAME.ui" > "$OUTPUT_DIR/ui_$NAME.py"
+  pyside2-uic "$INPUT_DIR/$NAME.ui" > "$OUTPUT_DIR/ui_$NAME.py"
 }
 
 

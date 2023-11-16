@@ -4,7 +4,7 @@ from   .model            import Model
 from   .test.mock.model  import Model as MockModel
 from   .widgets          import MainWindow
 import code
-from   PySide6.QtWidgets import QApplication
+from   PySide2.QtWidgets import QApplication
 import sys
 
 
@@ -37,7 +37,7 @@ def main():
 
 
     # run app
-    return_code = app.exec()
+    return_code = app.exec_()
 
 
     # --interact?

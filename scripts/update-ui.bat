@@ -15,5 +15,5 @@ cd /d qtcreator
 
 for %%f in (*.ui) do (
   del /Q "%OUTPUT_DIR%\ui_*.py"
-  pyside6-uic --output "%OUTPUT_DIR%\ui_%%~nf.py" "%INPUT_DIR%\%%~nf.ui"
+  pyside2-uic --output "%OUTPUT_DIR%\ui_%%~nf.py" "%INPUT_DIR%\%%~nf.ui"
 )

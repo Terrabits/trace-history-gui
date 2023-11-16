@@ -1,7 +1,7 @@
 from .mixins.ui_mixin  import create_ui_mixin
 from .ui_connect       import Ui_Connect
-from PySide6.QtCore    import Slot
-from PySide6.QtWidgets import QGroupBox
+from PySide2.QtCore    import Slot
+from PySide2.QtWidgets import QGroupBox
 
 
 # constants

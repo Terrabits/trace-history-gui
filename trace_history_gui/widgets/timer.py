@@ -2,8 +2,8 @@ from .create_property  import create_property_for_attribute
 from .mixins.ui_mixin  import create_ui_mixin
 from .ui_timer         import Ui_Timer
 from math              import ceil
-from PySide6.QtCore    import Signal, Slot, Qt, QTimer
-from PySide6.QtWidgets import QDialog
+from PySide2.QtCore    import Signal, Slot, Qt, QTimer
+from PySide2.QtWidgets import QDialog
 
 
 # constants

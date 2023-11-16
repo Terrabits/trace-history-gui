@@ -9,7 +9,7 @@ from .mixins.ui_mixin  import create_ui_mixin
 from .settings         import Settings
 from .timer            import Timer
 from .ui_mainwindow    import Ui_MainWindow
-from PySide6.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow
 from qtrf.mixins       import ShakeMixin
 
 
