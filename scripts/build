@@ -8,4 +8,4 @@ cd "$ROOT_DIR"
 
 # build
 scripts/update-ui
-exec pyinstaller pyinstaller-mac.spec "$@"
+exec pyinstaller --noconfirm pyinstaller-mac.spec "$@"

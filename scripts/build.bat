@@ -6,4 +6,4 @@ cd /d "%ROOT_DIR%"
 
 REM build
 REM call scripts\update-ui.bat
-pyinstaller pyinstaller-win.spec %*
+pyinstaller --noconfirm pyinstaller-win.spec %*
